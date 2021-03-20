@@ -4,15 +4,29 @@ import Details from './Details';
 class App extends React.Component {
   state = { amount: 10, pg: 30, vg: 70, flav: 0, nicBase: 72, nic: 0 };
   get ing() {
-    const nic_ml = (this.state.nic * this.state.amount) / this.state.nicBase;
-    const flav_ml = (this.state.flav / 100) * this.state.amount;
-    const pg_ml = ((this.state.pg - this.state.flav ) / 100) * this.state.amount - nic_ml;
-    const vg_ml = (this.state.vg / 100) * this.state.amount;
-    
-    return { pg_ml, vg_ml, flav_ml, nic_ml };
+    let nic_ml, flav_ml, pg_ml, vg_ml;
+    if (this.state.amount > 0 && this.state.pg >= 0 && this.state.vg >= 0 && this.state.flav >= 0 && this.state.nicBase >= 0 && this.state.nic >= 0) {
+      if (this.state.nicBase > 0) {
+        nic_ml = (this.state.nic * this.state.amount) / this.state.nicBase;
+      } else {
+        nic_ml = 0;
+      }
+      flav_ml = (this.state.flav / 100) * this.state.amount;
+      pg_ml = ((this.state.pg - this.state.flav) / 100) * this.state.amount - nic_ml;
+      vg_ml = (this.state.vg / 100) * this.state.amount;
+
+      return { pg_ml, vg_ml, flav_ml, nic_ml };
+    } else {
+      nic_ml = 0;
+      flav_ml = 0;
+      pg_ml = 0;
+      vg_ml = 0;
+      
+      return { pg_ml, vg_ml, flav_ml, nic_ml };
+    }
   }
   render() {
-    
+
     return (
       <div className="wrapper">
         <h1>Eliquid Mixer</h1>
@@ -55,7 +69,7 @@ class App extends React.Component {
               <Details
                 ingredient="PG dilutant"
                 ml={this.ing.pg_ml.toFixed(2)}
-                percentage={parseFloat((this.ing.pg_ml / this.state.amount)*100).toFixed(2)}
+                percentage={parseFloat((this.ing.pg_ml / this.state.amount) * 100).toFixed(2)}
               />
               <Details
                 ingredient="VG dilutant"
@@ -70,12 +84,12 @@ class App extends React.Component {
               <Details
                 ingredient={"Nicotine Base (" + this.state.nicBase + "mg)"}
                 ml={this.ing.nic_ml.toFixed(2)}
-                percentage={((this.ing.nic_ml / this.state.amount)*100).toFixed(2)}
+                percentage={((this.ing.nic_ml / this.state.amount) * 100).toFixed(2)}
               />
             </tbody>
           </table>
         </div>
-        <p>Note: Apart from VG dilutant, all the other ingredients should be PG based.</p>
+        <p>Note: Apart from VG dilutant, all the other ingredients should be PG based. Also make sure that the total ratio of VG and PG is 100%.</p>
       </div>
     );
   }
