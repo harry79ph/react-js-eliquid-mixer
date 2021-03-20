@@ -2,6 +2,7 @@
 .wrapper{
   font-family: 'PT Sans', sans-serif;
   max-width: 1000px;
+  width: 90%;
   margin: 50px auto;
 }
 label{
@@ -26,7 +27,9 @@ input{
   margin: 0 5px;
   width: 60px;
   font-size: 20px;
+  color: #797979;
   flex-grow: 1;
+  border: 1px solid #797979;
   border-radius: 4px;
   text-align: center;
 }
@@ -44,7 +47,9 @@ td, th{
   padding: 8px;
 }
 thead{
+  font-size: larger;
   background-color: #dddddd;
+  color: #ffffff;
 }
 tr:nth-child(even) {
   background-color: #dddddd;
