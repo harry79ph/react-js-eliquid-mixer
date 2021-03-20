@@ -1,2 +1,2 @@
 # EliquidMixer
-A useful React app for DIY e-liquid calculating.
+A useful React app for DIY e-liquid calculation.
