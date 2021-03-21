@@ -42,9 +42,9 @@ class App extends React.Component {
     const list = ings.map((ing, key) => {
       return (
         <div className="ing" key={key}>
-            <label htmlFor={ing.id}>{ing.desc}</label>
-            <input id={ing.id} type="text" value={ing.value} onChange={ing.onChange} />
-          </div>
+          <label htmlFor={ing.id}>{ing.desc}</label>
+          <input id={ing.id} type="text" value={ing.value} onChange={ing.onChange} />
+        </div>
       );
     });
     return (
