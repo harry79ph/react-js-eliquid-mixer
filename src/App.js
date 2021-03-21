@@ -14,47 +14,44 @@ class App extends React.Component {
       flav_ml = (this.state.flav / 100) * this.state.amount;
       pg_ml = ((this.state.pg - this.state.flav) / 100) * this.state.amount - nic_ml;
       vg_ml = (this.state.vg / 100) * this.state.amount;
-
       return { pg_ml, vg_ml, flav_ml, nic_ml };
     } else {
       nic_ml = 0;
       flav_ml = 0;
       pg_ml = 0;
       vg_ml = 0;
-      
       return { pg_ml, vg_ml, flav_ml, nic_ml };
     }
+
   }
   render() {
-
+    const ings = [
+      { desc: 'Total Amount (ml):', id: 'des-amount', value: this.state.amount,
+      onChange: e => this.setState({ amount: e.target.value }), key: 1 },
+      { desc: 'PG Ratio (%):', id: 'des-pg', value: this.state.pg,
+      onChange: e => this.setState({ pg: e.target.value }), key: 2 },
+      { desc: 'VG Ratio (%):', id: 'des-vg', value: this.state.vg,
+      onChange: e => this.setState({ vg: e.target.value }), key: 3 },
+      { desc: 'Desired Flavour (%):', id: 'des-flav', value: this.state.flav,
+      onChange: e => this.setState({ flav: e.target.value }), key: 4 },
+      { desc: 'Nicotine Strength (mg):', id: 'nic-base', value: this.state.nicBase,
+      onChange: e => this.setState({ nicBase: e.target.value }), key: 5 },
+      { desc: 'Desired Strength (mg):', id: 'des-nic', value: this.state.nic,
+      onChange: e => this.setState({ nic: e.target.value }), key: 6 }
+    ];
+    const list = ings.map((ing, key) => {
+      return (
+        <div className="ing" key={key}>
+            <label htmlFor={ing.id}>{ing.desc}</label>
+            <input id={ing.id} type="text" value={ing.value} onChange={ing.onChange} />
+          </div>
+      );
+    });
     return (
       <div className="wrapper">
         <h1>Eliquid Mixer</h1>
         <form className="adder">
-          <div className="ing">
-            <label htmlFor="des-amount">Total Amount (ml):</label>
-            <input id="des-amount" type="text" value={this.state.amount} onChange={e => this.setState({ amount: e.target.value })} />
-          </div>
-          <div className="ing">
-            <label htmlFor="des-pg">PG Ratio (%):</label>
-            <input id="des-pg" type="text" value={this.state.pg} onChange={e => this.setState({ pg: e.target.value })} />
-          </div>
-          <div className="ing">
-            <label htmlFor="des-vg">VG Ratio (%):</label>
-            <input id="des-vg" type="text" value={this.state.vg} onChange={e => this.setState({ vg: e.target.value })} />
-          </div>
-          <div className="ing">
-            <label htmlFor="des-flav">Desired Flavour (%):</label>
-            <input id="des-flav" type="text" value={this.state.flav} onChange={e => this.setState({ flav: e.target.value })} />
-          </div>
-          <div className="ing">
-            <label htmlFor="nic-base">Nicotine Strength (mg):</label>
-            <input id="nic-base" type="text" value={this.state.nicBase} onChange={e => this.setState({ nicBase: e.target.value })} />
-          </div>
-          <div className="ing">
-            <label htmlFor="des-nic">Desired Strength (mg):</label>
-            <input id="des-nic" type="text" value={this.state.nic} onChange={e => this.setState({ nic: e.target.value })} />
-          </div>
+          {list}
         </form>
         <div className="container">
           <table>
