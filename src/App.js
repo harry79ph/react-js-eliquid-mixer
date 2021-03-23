@@ -2,7 +2,9 @@ import React from 'react';
 import Details from './Details';
 
 class App extends React.Component {
-  state = { amount: 10, pg: 30, vg: 70, flav: 0, nicBase: 72, nic: 0 };
+  state = { amount: 10, pg: 30, vg: 70, flav: 0, nicBase: 72, nic: 0, };
+  warning = '';
+
   get ing() {
     let nic_ml, flav_ml, pg_ml, vg_ml;
     if (this.state.amount > 0 && this.state.pg >= 0 && this.state.vg >= 0 && this.state.flav >= 0 && this.state.nicBase >= 0 && this.state.nic >= 0) {
@@ -12,8 +14,15 @@ class App extends React.Component {
         nic_ml = 0;
       }
       flav_ml = (this.state.flav / 100) * this.state.amount;
-      pg_ml = ((this.state.pg - this.state.flav) / 100) * this.state.amount - nic_ml;
-      vg_ml = (this.state.vg / 100) * this.state.amount;
+      if (parseInt(this.state.pg) + parseInt(this.state.vg) !== 100) {
+        pg_ml = 0;
+        vg_ml = 0;
+        this.warning = 'Please make sure that the total ratio of VG and PG is 100%.';
+      } else {
+        pg_ml = ((this.state.pg - this.state.flav) / 100) * this.state.amount - nic_ml;
+        vg_ml = (this.state.vg / 100) * this.state.amount;
+        this.warning = '';
+      }
       return { pg_ml, vg_ml, flav_ml, nic_ml };
     } else {
       nic_ml = 0;
@@ -22,8 +31,8 @@ class App extends React.Component {
       vg_ml = 0;
       return { pg_ml, vg_ml, flav_ml, nic_ml };
     }
-
   }
+  
   render() {
     const ings = [
       { desc: 'Total Amount (ml):', id: 'des-amount', value: this.state.amount,
@@ -81,12 +90,13 @@ class App extends React.Component {
               <Details
                 ingredient={"Nicotine Base (" + this.state.nicBase + "mg)"}
                 ml={this.ing.nic_ml.toFixed(2)}
-                percentage={((this.ing.nic_ml / this.state.amount) * 100).toFixed(2)}
+                percentage={parseFloat((this.ing.nic_ml / this.state.amount) * 100).toFixed(2)}
               />
             </tbody>
           </table>
         </div>
-        <p>Note: Apart from VG dilutant, all the other ingredients should be PG based. Also make sure that the total ratio of VG and PG is 100%.</p>
+        <p style={{ fontWeight: "bold" }}>{this.warning}</p>
+        <p>Note: Apart from VG dilutant, all the other ingredients should be PG based.</p>
       </div>
     );
   }
