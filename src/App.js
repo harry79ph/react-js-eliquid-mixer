@@ -15,7 +15,7 @@ class App extends React.Component {
         nic_ml = 0;
       }
       flav_ml = (this.state.flav / 100) * this.state.amount;
-      if (parseInt(this.state.pg) + parseInt(this.state.vg) !== 100) {
+      if (parseInt(this.state.pg) + parseInt(this.state.vg) !== 100) {//setState coercing from number to string so I had to use parseInt
         [pg_ml, vg_ml] = [0, 0];
         this.warning = 'Please make sure that the total ratio of VG and PG is 100%.';
       } else {
@@ -35,25 +35,25 @@ class App extends React.Component {
   }
   
   render() {
-    const ings = [
+    const items = [
       { desc: 'Total Amount (ml):', id: 'des-amount', value: this.state.amount,
-      onChange: e => this.setState({ amount: e.target.value }), key: 1 },
+      inputHandler: e => this.setState({ amount: e.target.value }), key: 1 },
       { desc: 'PG Ratio (%):', id: 'des-pg', value: this.state.pg,
-      onChange: e => this.setState({ pg: e.target.value }), key: 2 },
+      inputHandler: e => this.setState({ pg: e.target.value }), key: 2 },
       { desc: 'VG Ratio (%):', id: 'des-vg', value: this.state.vg,
-      onChange: e => this.setState({ vg: e.target.value }), key: 3 },
+      inputHandler: e => this.setState({ vg: e.target.value }), key: 3 },
       { desc: 'Desired Flavour (%):', id: 'des-flav', value: this.state.flav,
-      onChange: e => this.setState({ flav: e.target.value }), key: 4 },
+      inputHandler: e => this.setState({ flav: e.target.value }), key: 4 },
       { desc: 'Nicotine Strength (mg):', id: 'nic-base', value: this.state.nicBase,
-      onChange: e => this.setState({ nicBase: e.target.value }), key: 5 },
+      inputHandler: e => this.setState({ nicBase: e.target.value }), key: 5 },
       { desc: 'Desired Strength (mg):', id: 'des-nic', value: this.state.nic,
-      onChange: e => this.setState({ nic: e.target.value }), key: 6 }
+      inputHandler: e => this.setState({ nic: e.target.value }), key: 6 }
     ];
-    const list = ings.map((ing, key) => {
+    const list = items.map((item, key) => {
       return (
         <div className="ing" key={key}>
-          <label htmlFor={ing.id}>{ing.desc}</label>
-          <input id={ing.id} type="text" value={ing.value} onChange={ing.onChange} />
+          <label htmlFor={item.id}>{item.desc}</label>
+          <input id={item.id} type="text" value={item.value} onChange={item.inputHandler} />
         </div>
       );
     });
