@@ -15,7 +15,7 @@ class App extends React.Component {
         nic_ml = 0;
       }
       flav_ml = (this.state.flav / 100) * this.state.amount;
-      if (parseInt(this.state.pg) + parseInt(this.state.vg) !== 100) {//setState coercing from number to string so I had to use parseInt
+      if (parseInt(this.state.pg) + parseInt(this.state.vg) !== 100) {
         [pg_ml, vg_ml] = [0, 0];
         this.warning = 'Please make sure that the total ratio of VG and PG is 100%.';
       } else {
