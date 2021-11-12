@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css?family=PT+Sans&display=swap");
 
 :root {
   --font: #24247e;
@@ -10,15 +10,15 @@
   padding: 0;
   box-sizing: border-box;
 }
-.wrapper{
-  font-family: 'PT Sans', sans-serif;
+.wrapper {
+  font-family: "PT Sans", sans-serif;
   max-width: 1000px;
   width: 90%;
   margin: 50px auto;
   position: relative;
   color: var(--font);
 }
-.image-container{
+.image-container {
   position: absolute;
   z-index: -1;
   height: 100%;
@@ -27,27 +27,27 @@
   justify-content: center;
   opacity: 0.1;
 }
-label{
+label {
   margin: 2px;
   font-size: 20px;
 }
-.wrapper h1{
+.wrapper h1 {
   text-align: center;
 }
-.wrapper .warning{
+.wrapper .warning {
   color: #ff0000;
 }
-form.adder{
+form.adder {
   margin: 10px auto;
   padding: 2px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-div.ing{
+div.ing {
   margin: 3px;
 }
-input{
+input {
   margin: 0 5px;
   width: 60px;
   font-size: 20px;
@@ -58,20 +58,21 @@ input{
   background: transparent;
   color: var(--font);
 }
-.container{
+.container {
   margin: 30px auto;
   display: flex;
 }
-table{
-  border-collapse: collapse; 
+table {
+  border-collapse: collapse;
   width: 100%;
 }
-td, th{
+td,
+th {
   border: 1px solid rgba(233, 248, 242, 0.95);
   text-align: left;
   padding: 8px;
 }
-thead{
+thead {
   font-size: larger;
   background-color: var(--background);
   color: #ffffff;
@@ -81,26 +82,26 @@ tr:nth-child(even) {
 }
 
 @media screen and (max-width: 960px) {
-  .image-container{
+  .image-container {
     padding-top: 10%;
   }
-  .image-container img{
+  .image-container img {
     width: calc(100% / 2);
   }
 }
 
 @media screen and (max-width: 480px) {
-  .image-container{
+  .image-container {
     padding-top: 15%;
     flex-wrap: wrap;
   }
-  .image-container img{
+  .image-container img {
     width: 70%;
   }
-  .image-container img[alt="funnel"]{
+  .image-container img[alt="funnel"] {
     padding-right: 10%;
   }
-  .image-container img[alt="flask"]{
+  .image-container img[alt="flask"] {
     padding-left: 8%;
   }
 }

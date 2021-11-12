@@ -1,30 +1,33 @@
 import React from 'react';
 import Details from './Details';
+import funnel from './images/funnel.svg';
+import flask from './images/flask.svg'
 
 class App extends React.Component {
-  
+
   state = { amount: 10, pg: 30, vg: 70, flav: 0, nicBase: 72, nic: 0 };
-  
+
   get ing() {
     let nic_ml, flav_ml, pg_ml, vg_ml, warning = '';
     if (this.state.amount > 0 && this.state.pg >= 0 && this.state.vg >= 0 && this.state.flav >= 0 && this.state.nicBase >= 0 && this.state.nic >= 0) {
       if (this.state.nicBase > 0) nic_ml = (this.state.nic * this.state.amount) / this.state.nicBase;
       else nic_ml = 0;
       flav_ml = (this.state.flav / 100) * this.state.amount;
-      if (parseInt(this.state.pg) + parseInt(this.state.vg) !== 100) {
+      if (parseInt(this.state.pg) + parseInt(this.state.vg) !== 100) {//setState coercing from number to string so I had to use parseInt
         [pg_ml, vg_ml] = [0, 0];
         warning = 'Please make sure that the total ratio of VG and PG is 100%.';
       } else {
         pg_ml = ((this.state.pg - this.state.flav) / 100) * this.state.amount - nic_ml;
         vg_ml = (this.state.vg / 100) * this.state.amount;
-        if (pg_ml < 0) warning = 'Please increase PG ratio.';
+        if (pg_ml < 0) warning = 'Please increase PG ratio';
         else warning = '';
       }
-    } else [nic_ml, flav_ml, pg_ml, vg_ml] = [0, 0, 0, 0];
+    } else[nic_ml, flav_ml, pg_ml, vg_ml] = [0, 0, 0, 0];
     return { pg_ml, vg_ml, flav_ml, nic_ml, warning };
   }
-  
+
   render() {
+    //console.log(this.ing.pg_ml, this.ing.vg_ml, this.ing.flav_ml, this.ing.nic_ml, this.ing.warning);
     const items = [
       { desc: 'Total Amount (ml):', name: 'amount', value: this.state.amount, key: 1 },
       { desc: 'PG Ratio (%):', name: 'pg', value: this.state.pg, key: 2 },
@@ -33,21 +36,27 @@ class App extends React.Component {
       { desc: 'Nicotine Strength (mg):', name: 'nicBase', value: this.state.nicBase, key: 5 },
       { desc: 'Desired Strength (mg):', name: 'nic', value: this.state.nic, key: 6 }
     ];
-    const handleChange = (e) =>  {
-      let name = e.target.name;
-      let value =  e.target.value;
-      this.setState({[name]: value});
+    const inputHandler = (e) => {
+      // let name = e.target.name;
+      // let value =  e.target.value;
+      const { target: { name, value } } = e;
+      this.setState({ [name]: value });
     }
     const list = items.map((item, key) => {
       return (
         <div className="ing" key={key}>
           <label htmlFor={item.name}>{item.desc}</label>
-          <input name={item.name} type="text" value={item.value} onChange={handleChange} />
+          <input name={item.name} type="text" value={item.value} onChange={inputHandler} />
         </div>
       );
     });
+
     return (
       <div className="wrapper">
+        <div className="image-container">
+          <img src={funnel} alt="funnel" />
+          <img src={flask} alt="flask" />
+        </div>
         <h1>Eliquid Mixer</h1>
         <form className="adder">
           {list}
@@ -85,8 +94,8 @@ class App extends React.Component {
             </tbody>
           </table>
         </div>
-        <p style={{ fontWeight: "bold" }}>{this.ing.warning}</p>
-        <p>Note: Apart from VG dilutant, all the other ingredients should be PG based.</p>
+        <p className="warning" style={{ fontWeight: "bold" }}>{this.ing.warning}</p>
+        <p>Note: Apart from VG dilutant, all the other ingredients should be PG based</p>
       </div>
     );
   }
